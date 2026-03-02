@@ -1,4 +1,3 @@
-# Grupo-3
 <h2 align="center">Grupo-3</h2>
 
 <p align="center">
