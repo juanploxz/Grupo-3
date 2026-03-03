@@ -3,6 +3,7 @@
 <p align="center">
   <b>Juan Pablo Parra El-Masri</b><br/>
   <b>Mateo Gomez Giraldo</b><br/>
+  <b>Juan Diego Cortes</b><br/>
   <b>Juan Esteban Restrepo</b>
 </p>
 
