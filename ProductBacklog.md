@@ -66,24 +66,3 @@ Estas deben tener una **etiqueta especial en GitHub** (ej: `non-functional`).
 
 ---
 
-# Labels recomendadas para GitHub
-
-Crear estas etiquetas en el repositorio:
-
-| Label | Color sugerido | Uso |
-|------|------|------|
-| feature | azul | funcionalidades |
-| MVP | verde | historias prioritarias |
-| recommendation | amarillo | sistema de matching |
-| profile | celeste | perfil de usuario |
-| search | naranja | búsqueda de vacantes |
-| admin | gris | funcionalidades de administrador |
-| non-functional | rojo | requisitos no funcionales |
-| security | morado | seguridad |
-| performance | rosado | rendimiento |
-| quality | verde oscuro | calidad del código |
-
----
-
-
-
