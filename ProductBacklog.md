@@ -85,5 +85,5 @@ Crear estas etiquetas en el repositorio:
 
 ---
 
-# Organización recomendada del repositorio
+
 
