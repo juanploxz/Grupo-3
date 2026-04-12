@@ -47,6 +47,6 @@ docker compose up --build
 
 ## Notas de arquitectura
 
-- La logica de matching actual esta implementada en Python para tener una base demostrable.
-- La capa `repositories/graph_repo.py` preserva la frontera para integrar Neo4j real en el siguiente sprint.
+- El score de recomendaciones se calcula en Neo4j a partir de relaciones entre `Candidate`, `Skill` y `Vacancy`.
+- La capa `repositories/graph_repo.py` sincroniza el estado del MVP al grafo y ejecuta la consulta de matching.
 - La interfaz usa datos del backend cuando esta disponible y hace fallback a datos demo cuando no lo esta.

@@ -6,12 +6,14 @@ from fastapi import HTTPException, status
 
 from app.core.security import hash_password, verify_password
 from app.repositories.candidate_repo import CandidateRepository
+from app.repositories.graph_repo import GraphRepository
 from app.schemas.auth import AuthResponse, LoginRequest, RegisterRequest
 
 
 class AuthService:
     def __init__(self) -> None:
         self.repository = CandidateRepository()
+        self.graph_repository = GraphRepository()
 
     def register(self, payload: RegisterRequest) -> AuthResponse:
         if self.repository.get_by_email(payload.email):
@@ -34,6 +36,7 @@ class AuthService:
             "profile_completion": 20,
         }
         self.repository.create(candidate)
+        self.graph_repository.upsert_candidate(candidate)
         return AuthResponse(message="Cuenta creada correctamente", candidate_id=candidate["id"], email=candidate["email"])
 
     def login(self, payload: LoginRequest) -> AuthResponse:

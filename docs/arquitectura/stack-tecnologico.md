@@ -12,7 +12,7 @@
 
 ## Datos e infraestructura
 - JSON seed para demo del MVP
-- Neo4j como base prevista para matching basado en grafos
+- Neo4j como motor real para matching basado en grafos y score por skills
 - Docker Compose para levantar servicios locales
 
 ## Justificacion

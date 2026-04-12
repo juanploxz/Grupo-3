@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import HTTPException, UploadFile, status
 
 from app.repositories.candidate_repo import CandidateRepository
+from app.repositories.graph_repo import GraphRepository
 from app.schemas.profile import CandidateProfile, CvUploadResponse, ProfileUpdateRequest
 from app.utils.cv_parser import extract_profile_from_text
 from app.utils.file_handler import save_upload
@@ -12,6 +13,7 @@ from app.utils.text_normalizer import normalize_skills
 class ProfileService:
     def __init__(self) -> None:
         self.repository = CandidateRepository()
+        self.graph_repository = GraphRepository()
 
     def get_profile(self, candidate_id: str) -> CandidateProfile:
         candidate = self.repository.get_by_id(candidate_id)
@@ -35,6 +37,7 @@ class ProfileService:
                     completion += 10
             updates["profile_completion"] = min(completion, 100)
         candidate = self.repository.update(candidate_id, updates)
+        self.graph_repository.upsert_candidate(candidate)
         sanitized = {key: value for key, value in candidate.items() if key != "password_hash"}
         return CandidateProfile(**sanitized)
 
@@ -56,6 +59,7 @@ class ProfileService:
                 "profile_completion": extracted["profile_completion"],
             },
         )
+        self.graph_repository.upsert_candidate(updated)
         return CvUploadResponse(
             candidate_id=candidate_id,
             filename=upload.filename,
