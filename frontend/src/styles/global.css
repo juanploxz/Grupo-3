@@ -166,6 +166,12 @@ input {
   gap: 4px;
 }
 
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .hero {
   padding: 28px;
 }
@@ -252,6 +258,11 @@ input {
   margin-top: 6px;
 }
 
+.application-item p {
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
 .vacancy-list,
 .application-list {
   display: grid;
@@ -265,6 +276,45 @@ input {
 
 .vacancy-item__meta {
   width: fit-content;
+}
+
+.application-form {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(21, 33, 29, 0.05);
+}
+
+.application-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.application-form textarea,
+.application-form input {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.application-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.application-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.application-form__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -295,6 +345,28 @@ input {
   max-width: 420px;
 }
 
+.auth-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 999px;
+  background: rgba(21, 33, 29, 0.06);
+}
+
+.auth-switch__tab {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.auth-switch__tab--active {
+  background: var(--ink);
+  color: white;
+}
+
 .login-card label {
   display: grid;
   gap: 8px;
@@ -305,6 +377,12 @@ input {
   border: 1px solid var(--border);
   padding: 14px 16px;
   background: rgba(255, 255, 255, 0.78);
+}
+
+.form-error {
+  margin: 0;
+  color: #a83f18;
+  font-weight: 600;
 }
 
 .loader-shell,
@@ -337,7 +415,8 @@ input {
   .shell,
   .grid-two,
   .stats-row,
-  .insights-grid {
+  .insights-grid,
+  .application-form__grid {
     grid-template-columns: 1fr;
   }
 
@@ -353,5 +432,11 @@ input {
   .topbar {
     align-items: start;
     flex-direction: column;
+  }
+
+  .topbar__actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
   }
 }

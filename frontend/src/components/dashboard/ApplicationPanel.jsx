@@ -13,6 +13,11 @@ export default function ApplicationPanel({ applications }) {
           <div className="application-item" key={application.id}>
             <strong>{application.vacancy_id}</strong>
             <span>{application.status}</span>
+            {application.availability ? <span>Disponibilidad: {application.availability}</span> : null}
+            {application.expected_salary ? (
+              <span>Aspiracion salarial: ${application.expected_salary.toLocaleString("es-CO")}</span>
+            ) : null}
+            {application.cover_letter ? <p>{application.cover_letter}</p> : null}
           </div>
         ))}
       </div>

@@ -7,7 +7,7 @@ import VacancyList from "../components/dashboard/VacancyList";
 import Loader from "../components/common/Loader";
 import { useDashboardData } from "../hooks/useDashboardData";
 
-export default function DashboardPage({ candidateId }) {
+export default function DashboardPage({ candidateId, onLogout }) {
   const { profile, matches, applications, loading, error, saveProfile, applyToVacancy } = useDashboardData(candidateId);
 
   if (loading) {
@@ -22,13 +22,13 @@ export default function DashboardPage({ candidateId }) {
     <div className="shell">
       <Sidebar />
       <main className="content">
-        <Navbar profile={profile} />
+        <Navbar profile={profile} onLogout={onLogout} />
         <div className="hero card">
-          <span className="eyebrow">Arquitectura en capas</span>
-          <h2>Una base de proyecto lista para crecer hacia matching con grafo real</h2>
+          <span className="eyebrow">Perfil profesional</span>
+          <h2>Encuentra vacantes recomendadas segun tus habilidades</h2>
           <p>
-            El repositorio ahora separa interfaz, API, datos y documentacion para que el equipo pueda implementar
-            historias del sprint sin mezclar responsabilidades.
+            Consulta tu perfil, revisa coincidencias con cada vacante y entiende por que el sistema te recomienda
+            determinadas oportunidades.
           </p>
         </div>
         <div className="grid-two">

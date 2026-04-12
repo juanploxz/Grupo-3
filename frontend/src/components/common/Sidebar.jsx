@@ -8,7 +8,7 @@ const items = [
 export default function Sidebar() {
   return (
     <aside className="sidebar">
-      <p className="sidebar__title">Sprint actual</p>
+      <p className="sidebar__title">Navegacion</p>
       <ul>
         {items.map((item) => (
           <li key={item.target}>

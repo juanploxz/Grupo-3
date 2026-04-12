@@ -18,6 +18,9 @@ class ApplicationService:
             "id": f"application-{uuid.uuid4().hex[:8]}",
             "candidate_id": payload.candidate_id,
             "vacancy_id": payload.vacancy_id,
+            "cover_letter": payload.cover_letter,
+            "availability": payload.availability,
+            "expected_salary": payload.expected_salary,
             "status": payload.status,
         }
         return ApplicationRecord(**self.repository.create(application))

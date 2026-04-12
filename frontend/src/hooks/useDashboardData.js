@@ -37,10 +37,13 @@ export function useDashboardData(candidateId) {
     setState((current) => ({ ...current, profile }));
   }
 
-  async function applyToVacancy(vacancyId) {
+  async function applyToVacancy(payload) {
     const application = await createApplication({
       candidate_id: candidateId,
-      vacancy_id: vacancyId,
+      vacancy_id: payload.vacancy_id,
+      cover_letter: payload.cover_letter,
+      availability: payload.availability,
+      expected_salary: payload.expected_salary,
       status: "submitted",
     });
     setState((current) => ({
