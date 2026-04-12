@@ -1,75 +1,52 @@
-<h2 align="center">Grupo-3 — Profile Manager (Idea 5: Neo4j)</h2>
+# TheFinder
 
-<p align="center">
-  <b>Juan Pablo Parra El-Masri</b><br/>
-  <b>Mateo Gomez Giraldo</b><br/>
-  <b>Juan Diego Cortes</b><br/>
-  <b>Juan Esteban Restrepo</b>
-</p>
+TheFinder es una plataforma web para cargar CV, estructurar un perfil profesional y recomendar vacantes con un motor de matching explicable. El repositorio ahora esta organizado por dominios claros para facilitar trabajo en sprints, evidencia tecnica y crecimiento del MVP.
 
-<hr/>
+## Estructura del repositorio
 
-<h3> Descripción</h3>
-<p>
-  PoC de recomendaciones <b>explicables</b> usando <b>Neo4j</b> (grafos) ejecutado con <b>Docker</b>.
-  El ranking devuelve:
-  <b>score</b> (compatibilidad) y <b>matchedSkills</b> (explicación).
-</p>
-
-<h3>📁 Estructura</h3>
-
-<pre>
+```text
 Grupo-3/
-  infra/
-    docker-compose.yml
-    seed.cypher
-    recommendations.cypher
-  backend/        (pendiente)
-  frontend/       (pendiente)
-  README.md
-</pre>
+  backend/        FastAPI, capas de api, servicios, repositorios y esquemas
+  frontend/       React + Vite, componentes, paginas, hooks y estilos
+  database/       muestras y scripts de Neo4j
+  docs/           arquitectura, requisitos y entregas
+  infra/          Dockerfiles, compose y utilidades de entorno
+```
 
-<h3> Requisitos</h3>
-<ul>
-  <li>Docker Desktop instalado y corriendo</li>
-  <li>Navegador web</li>
-</ul>
+## Historias soportadas por la base actual
 
-<h3> 1) Levantar Neo4j con Docker</h3>
-<p>Desde la raíz del repo:</p>
+- HU-01 / HU-02: autenticacion basica
+- HU-04 / HU-05: carga y procesamiento inicial de CV
+- HU-06 / HU-08: edicion de perfil y preferencias
+- HU-09 / HU-10: recomendaciones y explicacion del matching
+- HU-11: postulacion a vacantes
 
-<pre>
-cd infra
-docker compose up -d
-docker ps
-</pre>
+## Backend
 
-<h3> 2) Abrir Neo4j Browser</h3>
-<ul>
-  <li>URL: <code>http://localhost:7474</code></li>
-  <li>Usuario: <code>neo4j</code></li>
-  <li>Contraseña: <code>password123</code></li>
-</ul>
+```bash
+cd backend
+python -m venv .venv
+. .venv/Scripts/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
 
-<h3> 3) Cargar datos (Seed)</h3>
-<p>
-  En Neo4j Browser (editor de consultas que empieza con <code>$</code>):
-</p>
-<ol>
-  <li>Abrir <code>infra/seed.cypher</code></li>
-  <li>Copiar todo su contenido</li>
-  <li>Pegar en Neo4j Browser y ejecutar (<b>Run</b> o <b>Ctrl+Enter</b>)</li>
-</ol>
+## Frontend
 
-<h3> 4) Probar recomendaciones</h3>
-<ol>
-  <li>Ejecutar el contenido de <code>infra/recommendations.cypher</code></li>
-</ol>
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-<p><b>Salida esperada:</b> ranking de vacantes con <code>score</code> y <code>matchedSkills</code>.</p>
+## Docker
 
-<h3> Apagar (opcional)</h3>
-<pre>
-cd infra
-docker compose down
-</pre>
+```bash
+docker compose up --build
+```
+
+## Notas de arquitectura
+
+- La logica de matching actual esta implementada en Python para tener una base demostrable.
+- La capa `repositories/graph_repo.py` preserva la frontera para integrar Neo4j real en el siguiente sprint.
+- La interfaz usa datos del backend cuando esta disponible y hace fallback a datos demo cuando no lo esta.
