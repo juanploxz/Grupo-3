@@ -2,6 +2,13 @@
 
 TheFinder es una plataforma web para cargar CV, estructurar un perfil profesional y recomendar vacantes con un motor de matching explicable basado en skills y Neo4j.
 
+## Integrantes
+
+- Juan Pablo Parra El-Masri
+- Mateo Gomez Giraldo
+- Juan Diego Cortes
+- Juan Esteban Restrepo
+
 ## Estructura del repositorio
 
 ```text
