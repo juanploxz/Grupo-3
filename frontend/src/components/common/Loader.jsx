@@ -1,4 +1,4 @@
-export default function Loader({ label = "Cargando informacion del dashboard..." }) {
+export default function Loader({ label = "Cargando tu información..." }) {
   return (
     <div className="loader-shell">
       <div className="loader-ring" />

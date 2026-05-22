@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { createApplication, getDashboardData, updateProfile } from "../services/api";
+import {
+  createApplication,
+  deleteApplication,
+  getDashboardData,
+  updateApplication,
+  updateProfile,
+} from "../services/api";
 
 export function useDashboardData(candidateId) {
   const [state, setState] = useState({
@@ -50,11 +56,33 @@ export function useDashboardData(candidateId) {
       ...current,
       applications: [...current.applications, application],
     }));
+    return application;
+  }
+
+  async function editApplication(applicationId, updates) {
+    const application = await updateApplication(applicationId, updates);
+    setState((current) => ({
+      ...current,
+      applications: current.applications.map((item) =>
+        item.id === applicationId ? { ...item, ...application } : item
+      ),
+    }));
+    return application;
+  }
+
+  async function removeApplication(applicationId) {
+    await deleteApplication(applicationId);
+    setState((current) => ({
+      ...current,
+      applications: current.applications.filter((application) => application.id !== applicationId),
+    }));
   }
 
   return {
     ...state,
     saveProfile,
     applyToVacancy,
+    editApplication,
+    removeApplication,
   };
 }

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "application-1",
+    "candidate_id": "candidate-1",
+    "vacancy_id": "vacancy-1",
+    "cover_letter": "Estoy interesado en esta vacante por mi experiencia en APIs y automatización de procesos.",
+    "availability": "Inmediata",
+    "expected_salary": 6500000,
+    "status": "submitted"
+  },
+  {
+    "id": "application-2",
+    "candidate_id": "candidate-2",
+    "vacancy_id": "vacancy-3",
+    "cover_letter": "Tengo experiencia construyendo interfaces y sistemas de componentes en React.",
+    "availability": "Dos semanas",
+    "expected_salary": 5500000,
+    "status": "review"
+  },
+  {
+    "id": "application-3",
+    "candidate_id": "candidate-3",
+    "vacancy_id": "vacancy-2",
+    "cover_letter": "Mi perfil encaja con el enfoque de datos y automatización de procesos.",
+    "availability": "Inmediata",
+    "expected_salary": 6000000,
+    "status": "submitted"
+  }
+]

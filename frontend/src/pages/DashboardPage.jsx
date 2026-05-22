@@ -8,14 +8,24 @@ import Loader from "../components/common/Loader";
 import { useDashboardData } from "../hooks/useDashboardData";
 
 export default function DashboardPage({ candidateId, onLogout }) {
-  const { profile, matches, applications, loading, error, saveProfile, applyToVacancy } = useDashboardData(candidateId);
+  const {
+    profile,
+    matches,
+    applications,
+    loading,
+    error,
+    saveProfile,
+    applyToVacancy,
+    editApplication,
+    removeApplication,
+  } = useDashboardData(candidateId);
 
   if (loading) {
     return <Loader />;
   }
 
   if (error) {
-    return <p className="error-banner">No fue posible cargar el dashboard: {error}</p>;
+    return <p className="error-banner">No fue posible cargar tu información: {error}</p>;
   }
 
   return (
@@ -25,9 +35,9 @@ export default function DashboardPage({ candidateId, onLogout }) {
         <Navbar profile={profile} onLogout={onLogout} />
         <div className="hero card">
           <span className="eyebrow">Perfil profesional</span>
-          <h2>Encuentra vacantes recomendadas segun tus habilidades</h2>
+          <h2>Encuentra vacantes recomendadas según tus habilidades</h2>
           <p>
-            Consulta tu perfil, revisa coincidencias con cada vacante y entiende por que el sistema te recomienda
+            Consulta tu perfil, revisa coincidencias con cada vacante y entiende por qué el sistema te recomienda
             determinadas oportunidades.
           </p>
         </div>
@@ -43,7 +53,12 @@ export default function DashboardPage({ candidateId, onLogout }) {
           <VacancyList matches={matches} onApply={applyToVacancy} />
         </section>
         <section id="applications-panel" className="section-anchor">
-          <ApplicationPanel applications={applications} />
+          <ApplicationPanel
+            applications={applications}
+            matches={matches}
+            onUpdateApplication={editApplication}
+            onDeleteApplication={removeApplication}
+          />
         </section>
       </main>
     </div>

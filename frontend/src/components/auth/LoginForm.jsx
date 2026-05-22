@@ -39,7 +39,7 @@ export default function LoginForm({ onLogin, onRegister }) {
       await onRegister(registerForm);
       setRegisterForm(initialRegisterForm);
     } catch (submissionError) {
-      setError(submissionError.message || "No fue posible completar la accion.");
+      setError(submissionError.message || "No fue posible completar la acción.");
     }
   }
 
@@ -54,7 +54,7 @@ export default function LoginForm({ onLogin, onRegister }) {
             setError("");
           }}
         >
-          Iniciar sesion
+          Iniciar sesión
         </button>
         <button
           className={`auth-switch__tab ${mode === "register" ? "auth-switch__tab--active" : ""}`}
@@ -68,7 +68,7 @@ export default function LoginForm({ onLogin, onRegister }) {
         </button>
       </div>
       <span className="eyebrow">{mode === "login" ? "Acceso" : "Registro"}</span>
-      <h2>{mode === "login" ? "Ingresa para revisar recomendaciones" : "Crea una cuenta"}</h2>
+      <h2>{mode === "login" ? "Ingresa para revisar tus recomendaciones" : "Crea una cuenta"}</h2>
       {mode === "register" ? (
         <label>
           Nombre completo
@@ -81,7 +81,7 @@ export default function LoginForm({ onLogin, onRegister }) {
         </label>
       ) : null}
       <label>
-        Email
+        Correo electrónico
         <input
           name="email"
           value={mode === "login" ? loginForm.email : registerForm.email}
@@ -90,17 +90,17 @@ export default function LoginForm({ onLogin, onRegister }) {
         />
       </label>
       <label>
-        Contrasena
+        Contraseña
         <input
           name="password"
           type="password"
           value={mode === "login" ? loginForm.password : registerForm.password}
           onChange={handleChange}
-          placeholder="Ingresa tu contrasena"
+          placeholder="Ingresa tu contraseña"
         />
       </label>
       {error ? <p className="form-error">{error}</p> : null}
-      <Button type="submit">{mode === "login" ? "Entrar al dashboard" : "Crear cuenta"}</Button>
+      <Button type="submit">{mode === "login" ? "Entrar" : "Crear cuenta"}</Button>
     </form>
   );
 }

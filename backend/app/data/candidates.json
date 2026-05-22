@@ -1,0 +1,102 @@
+[
+  {
+    "id": "candidate-1",
+    "email": "juan@example.com",
+    "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "full_name": "Juan Pablo Parra El Masri",
+    "headline": "Backend developer with product mindset",
+    "location": "Medellín, Colombia",
+    "summary": "Desarrollador backend con experiencia en APIs, datos y automatización de procesos de empleabilidad.",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "Neo4j",
+      "Docker",
+      "React",
+      "SQL"
+    ],
+    "experience_years": 3,
+    "preferred_roles": [
+      "Backend Developer",
+      "Data Engineer"
+    ],
+    "preferred_locations": [
+      "Remote",
+      "Medellín"
+    ],
+    "salary_expectation": 6500000,
+    "cv_filename": "candidato1.pdf",
+    "profile_completion": 88
+  },
+  {
+    "id": "candidate-2",
+    "email": "mateo@example.com",
+    "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "full_name": "Mateo Gomez Giraldo",
+    "headline": "Frontend developer focused on product experience",
+    "location": "Bogotá, Colombia",
+    "summary": "Desarrollador frontend con experiencia en interfaces web, diseno de componentes y experiencia de usuario.",
+    "skills": [
+      "React",
+      "JavaScript",
+      "CSS",
+      "Testing",
+      "Docker"
+    ],
+    "experience_years": 2,
+    "preferred_roles": [
+      "Frontend Developer",
+      "UI Engineer"
+    ],
+    "preferred_locations": [
+      "Remote",
+      "Bogotá"
+    ],
+    "salary_expectation": 5500000,
+    "cv_filename": "candidato2.pdf",
+    "profile_completion": 84
+  },
+  {
+    "id": "candidate-3",
+    "email": "juandiego@example.com",
+    "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "full_name": "Juan Diego Cortes",
+    "headline": "Data and backend profile with graph interest",
+    "location": "Medellín, Colombia",
+    "summary": "Perfil orientado a datos y backend con interés en automatización, SQL y motores de recomendación.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Docker",
+      "Neo4j"
+    ],
+    "experience_years": 2,
+    "preferred_roles": [
+      "Data Engineer",
+      "Backend Developer"
+    ],
+    "preferred_locations": [
+      "Remote",
+      "Medellín"
+    ],
+    "salary_expectation": 6000000,
+    "cv_filename": null,
+    "profile_completion": 79
+  },
+  {
+    "id": "candidate-1033fdd9",
+    "email": "correo@gmail.com",
+    "password_hash": "34d128f5b3dede622e107438fbefabdf0519ebab21ac7b6f2075f974d09ce524",
+    "full_name": "pepito perez",
+    "headline": "Nuevo candidato en TheFinder",
+    "location": "Por definir",
+    "summary": "Perfil recién creado. Completa la información para mejorar las recomendaciones.",
+    "skills": [],
+    "experience_years": 0,
+    "preferred_roles": [],
+    "preferred_locations": [],
+    "salary_expectation": 0,
+    "cv_filename": null,
+    "profile_completion": 20
+  }
+]

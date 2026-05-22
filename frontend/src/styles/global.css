@@ -45,7 +45,9 @@ a {
 }
 
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -263,6 +265,11 @@ input {
   color: var(--muted);
 }
 
+.empty-state {
+  margin: 18px 0 0;
+  color: var(--muted);
+}
+
 .vacancy-list,
 .application-list {
   display: grid;
@@ -292,7 +299,8 @@ input {
 }
 
 .application-form textarea,
-.application-form input {
+.application-form input,
+.application-form select {
   width: 100%;
   border-radius: 16px;
   border: 1px solid var(--border);
@@ -317,6 +325,30 @@ input {
   flex-wrap: wrap;
 }
 
+.record-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.form-feedback {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  font-weight: 600;
+}
+
+.form-feedback--success {
+  background: rgba(84, 139, 92, 0.14);
+  color: #2f6a3a;
+}
+
+.form-feedback--error {
+  background: rgba(168, 63, 24, 0.12);
+  color: #a83f18;
+}
+
 .button {
   border: none;
   border-radius: 999px;
@@ -327,6 +359,12 @@ input {
 
 .button:hover {
   transform: translateY(-1px);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+  transform: none;
 }
 
 .button--primary {

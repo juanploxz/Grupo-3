@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from fastapi import HTTPException, UploadFile, status
+from neo4j.exceptions import Neo4jError, ServiceUnavailable
 
 from app.repositories.candidate_repo import CandidateRepository
 from app.repositories.graph_repo import GraphRepository
@@ -37,7 +38,10 @@ class ProfileService:
                     completion += 10
             updates["profile_completion"] = min(completion, 100)
         candidate = self.repository.update(candidate_id, updates)
-        self.graph_repository.upsert_candidate(candidate)
+        try:
+            self.graph_repository.upsert_candidate(candidate)
+        except (Neo4jError, ServiceUnavailable):
+            pass
         sanitized = {key: value for key, value in candidate.items() if key != "password_hash"}
         return CandidateProfile(**sanitized)
 
@@ -59,7 +63,10 @@ class ProfileService:
                 "profile_completion": extracted["profile_completion"],
             },
         )
-        self.graph_repository.upsert_candidate(updated)
+        try:
+            self.graph_repository.upsert_candidate(updated)
+        except (Neo4jError, ServiceUnavailable):
+            pass
         return CvUploadResponse(
             candidate_id=candidate_id,
             filename=upload.filename,

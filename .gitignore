@@ -61,6 +61,10 @@ backend/uploads/*
 
 # Neo4j / docker local data
 data/
+!frontend/src/data/
+!frontend/src/data/**
+!backend/app/data/
+!backend/app/data/**
 tmp/
 temp/
 *.pid

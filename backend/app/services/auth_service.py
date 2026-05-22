@@ -3,6 +3,7 @@ from __future__ import annotations
 import uuid
 
 from fastapi import HTTPException, status
+from neo4j.exceptions import Neo4jError, ServiceUnavailable
 
 from app.core.security import hash_password, verify_password
 from app.repositories.candidate_repo import CandidateRepository
@@ -36,7 +37,10 @@ class AuthService:
             "profile_completion": 20,
         }
         self.repository.create(candidate)
-        self.graph_repository.upsert_candidate(candidate)
+        try:
+            self.graph_repository.upsert_candidate(candidate)
+        except (Neo4jError, ServiceUnavailable):
+            pass
         return AuthResponse(message="Cuenta creada correctamente", candidate_id=candidate["id"], email=candidate["email"])
 
     def login(self, payload: LoginRequest) -> AuthResponse:

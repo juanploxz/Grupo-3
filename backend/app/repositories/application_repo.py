@@ -17,3 +17,21 @@ class ApplicationRepository:
         records.append(application)
         write_json(FILENAME, records)
         return application
+
+    def update(self, application_id: str, updates: dict) -> dict | None:
+        records = self.list_all()
+        for index, record in enumerate(records):
+            if record["id"] == application_id:
+                records[index] = {**record, **updates}
+                write_json(FILENAME, records)
+                return records[index]
+        return None
+
+    def delete(self, application_id: str) -> dict | None:
+        records = self.list_all()
+        for index, record in enumerate(records):
+            if record["id"] == application_id:
+                deleted = records.pop(index)
+                write_json(FILENAME, records)
+                return deleted
+        return None

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "vacancy-1",
+    "title": "Backend Developer",
+    "company": "Magneto Labs",
+    "location": "Remote",
+    "salary": 7000000,
+    "description": "Desarrollar APIs para matching laboral y automatización de procesos.",
+    "required_skills": ["Python", "FastAPI", "Docker", "SQL"],
+    "nice_to_have": ["Neo4j", "Azure", "Testing"]
+  },
+  {
+    "id": "vacancy-2",
+    "title": "Data Engineer",
+    "company": "Graph Talent",
+    "location": "Medellín",
+    "salary": 7600000,
+    "description": "Construir pipelines de datos y modelos de recomendación explicable.",
+    "required_skills": ["Python", "SQL", "Docker", "Neo4j"],
+    "nice_to_have": ["Airflow", "FastAPI", "Cloud"]
+  },
+  {
+    "id": "vacancy-3",
+    "title": "Frontend React Developer",
+    "company": "HireFlow",
+    "location": "Bogotá",
+    "salary": 6200000,
+    "description": "Crear experiencias web para candidatos y reclutadores.",
+    "required_skills": ["React", "JavaScript", "CSS"],
+    "nice_to_have": ["Figma", "Testing", "Accessibility"]
+  }
+]

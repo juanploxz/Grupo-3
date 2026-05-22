@@ -27,7 +27,8 @@ export default function App() {
           <span className="eyebrow">TheFinder</span>
           <h1>TheFinder</h1>
           <p>
-            Plataforma web para cargar CV, estructurar perfil profesional y priorizar vacantes con matching explicable.
+            Plataforma web para cargar tu CV, estructurar tu perfil profesional y priorizar vacantes con
+            recomendaciones claras.
           </p>
         </div>
         <LoginForm onLogin={handleLogin} onRegister={handleRegister} />

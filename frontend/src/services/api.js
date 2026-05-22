@@ -1,5 +1,5 @@
 import {
-  buildDemoProfile,
+  buildLocalProfile,
   mockApplicationsByCandidate,
   mockMatchesByCandidate,
   mockProfiles,
@@ -7,27 +7,27 @@ import {
 } from "../data/mockData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1";
-const DEMO_ACCOUNTS_KEY = "thefinder-demo-accounts";
+const LOCAL_ACCOUNTS_KEY = "thefinder-local-accounts";
 
-function readDemoAccounts() {
+function readLocalAccounts() {
   if (typeof window === "undefined") {
     return {};
   }
 
-  const raw = window.localStorage.getItem(DEMO_ACCOUNTS_KEY);
+  const raw = window.localStorage.getItem(LOCAL_ACCOUNTS_KEY);
   return raw ? JSON.parse(raw) : {};
 }
 
-function writeDemoAccounts(accounts) {
+function writeLocalAccounts(accounts) {
   if (typeof window === "undefined") {
     return;
   }
 
-  window.localStorage.setItem(DEMO_ACCOUNTS_KEY, JSON.stringify(accounts));
+  window.localStorage.setItem(LOCAL_ACCOUNTS_KEY, JSON.stringify(accounts));
 }
 
-function getAllDemoProfiles() {
-  const storedProfiles = Object.values(readDemoAccounts()).reduce((accumulator, account) => {
+function getAllProfiles() {
+  const storedProfiles = Object.values(readLocalAccounts()).reduce((accumulator, account) => {
     accumulator[account.profile.id] = account.profile;
     return accumulator;
   }, {});
@@ -38,9 +38,9 @@ function getAllDemoProfiles() {
   };
 }
 
-function getAllDemoProfilesByEmail() {
+function getAllProfilesByEmail() {
   const builtin = { ...mockProfilesByEmail };
-  const storedAccounts = readDemoAccounts();
+  const storedAccounts = readLocalAccounts();
 
   Object.values(storedAccounts).forEach((account) => {
     builtin[account.profile.email] = account.profile;
@@ -67,7 +67,7 @@ async function request(path, options = {}) {
 
 export async function login(credentials) {
   if (!credentials.email?.trim() || !credentials.password?.trim()) {
-    throw new Error("Debes ingresar email y contrasena.");
+    throw new Error("Debes ingresar correo electrónico y contraseña.");
   }
 
   try {
@@ -76,12 +76,12 @@ export async function login(credentials) {
       body: JSON.stringify(credentials),
     });
   } catch (error) {
-    const profile = getAllDemoProfilesByEmail()[credentials.email?.trim().toLowerCase()];
+    const profile = getAllProfilesByEmail()[credentials.email?.trim().toLowerCase()];
     if (!profile || credentials.password !== (profile.password || "password123")) {
-      throw new Error("Credenciales invalidas.");
+      throw new Error("Credenciales inválidas.");
     }
     return {
-      message: "Demo login",
+      message: "Inicio de sesión exitoso",
       candidate_id: profile.id,
       email: profile.email,
     };
@@ -90,7 +90,7 @@ export async function login(credentials) {
 
 export async function register(payload) {
   if (!payload.full_name?.trim() || !payload.email?.trim() || !payload.password?.trim()) {
-    throw new Error("Completa nombre, email y contrasena.");
+    throw new Error("Completa nombre, correo electrónico y contraseña.");
   }
 
   try {
@@ -100,14 +100,14 @@ export async function register(payload) {
     });
   } catch (error) {
     const normalizedEmail = payload.email.trim().toLowerCase();
-    const allProfilesByEmail = getAllDemoProfilesByEmail();
+    const allProfilesByEmail = getAllProfilesByEmail();
     if (allProfilesByEmail[normalizedEmail]) {
       throw new Error("El email ya existe.");
     }
 
-    const candidateId = `demo-${Date.now()}`;
-    const accounts = readDemoAccounts();
-    const profile = buildDemoProfile({
+    const candidateId = `candidate-${Date.now()}`;
+    const accounts = readLocalAccounts();
+    const profile = buildLocalProfile({
       id: candidateId,
       email: normalizedEmail,
       full_name: payload.full_name.trim(),
@@ -118,7 +118,7 @@ export async function register(payload) {
       profile,
       applications: [],
     };
-    writeDemoAccounts(accounts);
+    writeLocalAccounts(accounts);
 
     return {
       message: "Cuenta creada correctamente",
@@ -137,9 +137,9 @@ export async function getDashboardData(candidateId) {
     ]);
     return { profile, matches, applications };
   } catch (error) {
-    const allProfiles = getAllDemoProfiles();
-    const demoAccounts = readDemoAccounts();
-    const matchedAccount = Object.values(demoAccounts).find((account) => account.profile.id === candidateId);
+    const allProfiles = getAllProfiles();
+    const localAccounts = readLocalAccounts();
+    const matchedAccount = Object.values(localAccounts).find((account) => account.profile.id === candidateId);
 
     return {
       profile: allProfiles[candidateId] || allProfiles["candidate-1"],
@@ -156,19 +156,19 @@ export async function updateProfile(candidateId, updates) {
       body: JSON.stringify(updates),
     });
   } catch (error) {
-    const demoAccounts = readDemoAccounts();
-    const matchedEntry = Object.entries(demoAccounts).find(([, account]) => account.profile.id === candidateId);
+    const localAccounts = readLocalAccounts();
+    const matchedEntry = Object.entries(localAccounts).find(([, account]) => account.profile.id === candidateId);
     if (matchedEntry) {
       const [email, account] = matchedEntry;
-      demoAccounts[email] = {
+      localAccounts[email] = {
         ...account,
         profile: {
           ...account.profile,
           ...updates,
         },
       };
-      writeDemoAccounts(demoAccounts);
-      return demoAccounts[email].profile;
+      writeLocalAccounts(localAccounts);
+      return localAccounts[email].profile;
     }
 
     return { ...(mockProfiles[candidateId] || mockProfiles["candidate-1"]), ...updates };
@@ -187,16 +187,70 @@ export async function createApplication(payload) {
       ...payload,
       status: payload.status || "submitted",
     };
-    const demoAccounts = readDemoAccounts();
-    const matchedEntry = Object.entries(demoAccounts).find(([, account]) => account.profile.id === payload.candidate_id);
+    const localAccounts = readLocalAccounts();
+    const matchedEntry = Object.entries(localAccounts).find(([, account]) => account.profile.id === payload.candidate_id);
     if (matchedEntry) {
       const [email, account] = matchedEntry;
-      demoAccounts[email] = {
+      localAccounts[email] = {
         ...account,
         applications: [...account.applications, application],
       };
-      writeDemoAccounts(demoAccounts);
+      writeLocalAccounts(localAccounts);
     }
     return application;
+  }
+}
+
+export async function updateApplication(applicationId, updates) {
+  try {
+    return await request(`/applications/${applicationId}`, {
+      method: "PUT",
+      body: JSON.stringify(updates),
+    });
+  } catch (error) {
+    const localAccounts = readLocalAccounts();
+    const matchedEntry = Object.entries(localAccounts).find(([, account]) =>
+      account.applications?.some((application) => application.id === applicationId)
+    );
+
+    if (matchedEntry) {
+      const [email, account] = matchedEntry;
+      const application = account.applications.find((item) => item.id === applicationId);
+      const updatedApplication = { ...application, ...updates };
+      localAccounts[email] = {
+        ...account,
+        applications: account.applications.map((item) =>
+          item.id === applicationId ? updatedApplication : item
+        ),
+      };
+      writeLocalAccounts(localAccounts);
+      return updatedApplication;
+    }
+
+    return { id: applicationId, ...updates };
+  }
+}
+
+export async function deleteApplication(applicationId) {
+  try {
+    return await request(`/applications/${applicationId}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    const localAccounts = readLocalAccounts();
+    const matchedEntry = Object.entries(localAccounts).find(([, account]) =>
+      account.applications?.some((application) => application.id === applicationId)
+    );
+
+    if (matchedEntry) {
+      const [email, account] = matchedEntry;
+      localAccounts[email] = {
+        ...account,
+        applications: account.applications.filter((application) => application.id !== applicationId),
+      };
+      writeLocalAccounts(localAccounts);
+    }
+
+    return { id: applicationId, deleted: true };
   }
 }

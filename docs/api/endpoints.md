@@ -21,3 +21,5 @@
 ## Applications
 - `GET /api/v1/applications/{candidate_id}`
 - `POST /api/v1/applications`
+- `PUT /api/v1/applications/{application_id}`
+- `DELETE /api/v1/applications/{application_id}`
